@@ -2,7 +2,7 @@ from sense_hat import SenseHat
 from pygame.locals import *
 import pygame
 import time
-#this script demonstrates how to create a class structure for gaming mode
+
 sense = SenseHat()
 sense.clear()
 
@@ -14,16 +14,20 @@ class stack():
 
     def startGame(self):
         pygame.time.set_timer(USEREVENT +1, 800)
+        x = 0
         while self.gaming:
             for event in pygame.event.get():
-                    x = 0
-                    while x < 8:
-                        sense.set_pixel (x, 7, (0, 0, 255))
-                        time.sleep(0.5)
-                        sense.set_pixel (x, 7, (0, 0, 0))
-                        x +=1
-                        if x == 8:
-                            x = 0
+                if event.type == KEYDOWN:
+                    sense.set_pixel (x-1, 7, (0, 0, 255))
+                    self.gaming = False
+                else:
+                    sense.set_pixel (x, 7, (0, 0, 255))
+                    time.sleep(0.3)
+                    sense.set_pixel (x, 7, (0, 0, 0))
+                    time.sleep(0.3)
+                    x +=1
+                    if x == 8:
+                        x = 0
 
 if __name__ == "__main__":
     try:
