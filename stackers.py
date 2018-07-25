@@ -19,11 +19,18 @@ class stack():
         while self.gaming:
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
-                    sense.set_pixel (x-1, y, (0, 0, 255))
+                    sense.set_pixel (x-1, y, (255, 255, 255))
+                    if y == 7:
+                        stack_column = x
+                    else:
+                        if stack_column != x:
+                            sense.show_message("Game Over")
+                            self.gaming = False
                     # sets pixel at starting position in new row
                     x=0
                     y -= 1
-                    if y < 0:
+                    if y == -1:
+                        sense.show_message("You Win")
                         self.gaming = False
                 else:
                     sense.set_pixel (x, y, (0, 0, 255))
