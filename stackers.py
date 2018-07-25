@@ -13,18 +13,22 @@ class stack():
         self.gaming = True
 
     def startGame(self):
-        pygame.time.set_timer(USEREVENT +1, 800)
+        pygame.time.set_timer(USEREVENT +1, 1000)
         x = 0
+        y = 7
         while self.gaming:
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
-                    sense.set_pixel (x-1, 7, (0, 0, 255))
-                    self.gaming = False
+                    sense.set_pixel (x-1, y, (0, 0, 255))
+                    # sets pixel at starting position in new row
+                    x=0
+                    y -= 1
+                    if y < 0:
+                        self.gaming = False
                 else:
-                    sense.set_pixel (x, 7, (0, 0, 255))
+                    sense.set_pixel (x, y, (0, 0, 255))
                     time.sleep(0.3)
-                    sense.set_pixel (x, 7, (0, 0, 0))
-                    time.sleep(0.3)
+                    sense.set_pixel (x, y, (0, 0, 0))
                     x +=1
                     if x == 8:
                         x = 0
